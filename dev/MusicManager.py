@@ -1,4 +1,4 @@
-# Music Note Generator, Editor, and Composer
+# Music Note Generator, Editor, and Player
 # Author: Sequoia Pflug
 # Music Advisor: Denali Pflug
 # Original Version: 12-31-2021
@@ -17,18 +17,18 @@ import threading
 from noteSound import noteSound
 
 # variable initializations 
-notes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B","C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B"] #Note list for generation/transposition 
-singleNotes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B", "Done"] #Note list for menus
-randomList = [] #list of currently displayed notes
-memory = [] #list of previous iterations of currently loaded save file 
-keys = [] #list of buttons to be generated
+notes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B","C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B"] # Note list for generation/transposition 
+singleNotes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B", "Done"] # Note list for menus
+randomList = [] # list of currently displayed notes
+memory = [] # list of previous iterations of currently loaded save file 
+keys = [] # list of buttons to be generated
 XPosList = [] #list of x positions for notes on display
-textYPosList = [] #list of y positions for note text on display
-noteYPosList = [] #list of y positions for notes on display
-buttonXList = [] #list of x positions for buttons on display
-buttonYList = [] #list of y positions for buttons on display
-saveFile = 1 #currently loaded save file
-start = 1 #startup mode
+textYPosList = [] # list of y positions for note text on display
+noteYPosList = [] # list of y positions for notes on display
+buttonXList = [] # list of x positions for buttons on display
+buttonYList = [] # list of y positions for buttons on display
+saveFile = 1 # currently loaded save file
+start = 1 # startup mode
 
 # initialize graphics 
 StdDraw.setCanvasSize(768, 632)
@@ -105,7 +105,7 @@ def checkButtons():
                 if buttonX - 40 < int(StdDraw.mouseX()) < buttonX + 40 and buttonY - 23 < int(StdDraw.mouseY()) < buttonY + 23:
                     pressed = x
 
-    return pressed #(int) "keys" list entry that was pressed
+    return pressed # (int) "keys" list entry that was pressed
 
 # Clears all buttons and their positions from memory
 # clearBoard(int): Removes all buttons from display if 1
@@ -351,7 +351,6 @@ def playSounds():
 
     resetButtons(1)
 
-
 #Sets randomList equal to most recent memory entry, then deletes the most recent memory entry
 def undo():
     memory.pop(-1)
@@ -389,11 +388,14 @@ def loadList():
     else:
         clear()
 
+# Generates and adds random notes to randomList
+# number(int): Number of random notes to generate
+# dupStat: Reduces number of duplicate notes if 1
 def randomNotes(number, dupStat):
 
     resetButtons(1)
     
-    if dupStat == "0":
+    if dupStat == "1":
         maxDups = int((number + len(randomList))/2)
         if maxDups == 1:
             maxDups = 0
@@ -434,14 +436,17 @@ def randomNotes(number, dupStat):
     saveList()
     resetButtons(1)
 
+# Interface for user to manually add notes to randomlist
 def manualNotes():
     global keys
     global randomList
 
     resetButtons(1)
     
-    new = 0
-    x = 1 + len(randomList)
+    new = 0 # number of newly added notes
+    x = 1 + len(randomList) # number of notes currently in randomList
+    
+    # Allows user to add new notes until randomList has 16 entries
     while x <= 16:
         keys += singleNotes
         buttonTitle(str("Choose a note to add for space #" + str(x) + ":"))
@@ -455,8 +460,11 @@ def manualNotes():
             visualize()
         x += 1
         saveList()
+        
     if x > 16:
         title("Maximum number of notes reached", 1000)
+    
+    #Allows user to shuffle randomList
     if new != 0 and len(randomList) > 1:
         keys += ["Yes", "No"]
         buttonTitle("Would you like to shuffle all notes?")
@@ -468,6 +476,9 @@ def manualNotes():
 
     resetButtons(1)
 
+# Transposes randomList
+# direction(int): transposes forward if 1, backward if 0
+# magnitude(int): number of steps to transpose by (maximum of 12)
 def transpose(direction, magnitude):
     global randomList
 
@@ -492,16 +503,20 @@ def transpose(direction, magnitude):
     saveList()
     resetButtons(1)
 
+# Interface for user to remove notes from randomList
+# choice2(int): method of removal
 def removeNotes(choice2):
     global keys
     resetButtons(1)
     
+    # Removes all notes from randomList and resets screen
     if choice2 == "1":
         randomList.clear()
         clear()
         saveList()
         title("All notes have been cleared!", 1000)
-        
+    
+    # Allows user to remove notes in randomList by index until list is empty   
     elif choice2 == "2":
         while len(randomList) != 0:
             for t in range(1, len(randomList) +1):
@@ -525,7 +540,7 @@ def removeNotes(choice2):
                         visualize()
             saveList()
         
-                
+    # Allows user to remove all notes of a specific type in randomList until list is empty               
     elif choice2 == "3":
         while len(randomList) != 0:
             for w in range(0, len(singleNotes)-1):
@@ -551,11 +566,13 @@ def removeNotes(choice2):
             saveList()
     resetButtons(1)
 
+# Interface for user to change which save file is in use
 def manageFiles():
     global saveFile
 
     resetButtons(1)
     current = saveFile
+
     while current != 6:
         for new in range(1, 6):
             if new != current:
@@ -588,28 +605,35 @@ manageFiles()
 start = 0
 
 while True:
+    # Save current randomList to memory 
     if memory == []:
         memory.append(randomList.copy())
     elif memory[-1] != randomList:
         memory.append(randomList.copy())
-        
+    
+    # Get menu choice from user (option)    
     keys += ["Undo", "AddNotes", "RemoveNotes", "Transpose", "PlaySounds", "ChangeFile"]
     buttonTitle("Please Select An Option:")
     option = buttons(1, 0) + 1
-
+    
+    # Revert to previous version of randomList if memory is not empty
     if option == 1:
         if len(memory) < 2:
             title("Memory is empty", 1000)
         else:
             undo()     
     
+    # Add notes to randomList if list is not full
     if option == 2:
         if len(randomList) >= 16:
             title("Note list is full", 1000)
         else:
+            #Get preferred method from user (choice)
             keys += ["Random", "Manual"]
             buttonTitle("How would you like to add notes?")
             choice = buttons(1, 1) 
+
+            #Add randomly generated notes
             if choice == 0:
                 count = 1 
                 while 0 < count <= 16 and len(randomList) + count <= 16:
@@ -631,15 +655,17 @@ while True:
                 keys += ["Yes", "No"]
                 if maxDups == 0:
                     buttonTitle("Would you like to prevent new duplicate notes?")
-                    dupStat = buttons(1, 1)
+                    dupStat = buttons(1, 1) + 1
                 else:
                     buttonTitle("Would you like to reduce the number of new duplicate notes to a maximum of " + str(maxDups) + "?")
-                    dupStat = buttons(1, 1)
+                    dupStat = buttons(1, 1) + 1
                 randomNotes(number,str(dupStat))
-                    
+            
+            # Add notes manually         
             elif choice == 1:
                 manualNotes()
-        
+    
+    # Removes notes from randomList if list is not empty    
     if option == 3:
         if randomList == []:
             title("Note list is empty!", 1000)
@@ -648,7 +674,8 @@ while True:
             buttonTitle("How would you like to remove notes?")
             choice2 = buttons(1, 1) + 1
             removeNotes(str(choice2))
-
+    
+    # Transposes notes in randomList if list is not empty
     if option == 4:
         if randomList == []:
             title("You need to generate notes first!", 1000)
@@ -660,13 +687,15 @@ while True:
             buttonTitle("By how many notes?")
             magnitude = buttons(1, 1) + 1
             transpose(direction, magnitude)
-
+    
+    # Plays notes in randomList if list is not empty
     if option == 5:
         if randomList == []:
             title("You need to generate notes first!", 1000)
         else:
             playSounds()
-
+    
+    # Changes save file
     if option == 6:
         manageFiles()
         
