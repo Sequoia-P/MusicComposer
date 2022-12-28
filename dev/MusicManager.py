@@ -3,7 +3,7 @@
 # Music Advisor: Denali Pflug
 # Original Version: 12-31-2021
 # Update 1: 5-30-2022: Added save file feature
-# Update 2: 12-26-2022: Added undo button, new music player, new sound, removed unnecessary button refresh 
+# Update 2: 12-26-2022: Added undo button, new music player, new sound, new button refresh functions
 
 
 # Set up------------------------------------------------------------
@@ -39,7 +39,7 @@ StdDraw.setFontFamily("SansSerif")
 StdDraw.setFontSize(20)
 StdDraw.setPenRadius(1)
 
-# Media Functions------------------------------------------------------------
+# Graphical Functions------------------------------------------------------------
 
 # Displays buttons in “keys” list. 
 # auto(int): Waits until a key is pressed and then returns which list entry was pressed if 1
@@ -278,29 +278,39 @@ def unhighlightNote(x):
     resetButtons(0)
     StdDraw.show(0.0001)
 
+# Primary Functions---------------------------------------------------
+
+# Music player and controls 
 def playSounds():
     global keys
 
     resetButtons(1)
     
-    option = 0
-    pause = 0
-    x = 0
-    done = 0
-    
+    # variable initializations 
+    option = 0 # selected button
+    pause = 0 # pause indicator 
+    x = 0 # note being played
+    done = 0 # done indicator
+
+    #Music player menu and loop
     while option != 4 and done != 1:
         if x == len(randomList):
                 x = 0
-        highlightNote(x)
+                
+        highlightNote(x) #highlight current note
         keys += ["Backward", "Play", "Forward", "Done"]
         buttonTitle("Music Player")
         option = buttons(1, 0) + 1
-        if option == 1:
+        
+        # Select previous note
+        if option == 1: 
             unhighlightNote(x)
             if x == 0:
                 x = len(randomList) -1
             else:
                 x -= 1
+                
+        # Play sounds while checking for button presses
         if option == 2:
             unhighlightNote(x)
             while x < len(randomList):
@@ -326,6 +336,8 @@ def playSounds():
                         done = 1
                 unhighlightNote(x)
                 x += 1
+        
+        # Select next note
         if option == 3:
             unhighlightNote(x)
             if x == len(randomList):
@@ -339,8 +351,8 @@ def playSounds():
 
     resetButtons(1)
 
-# Mechanical Functions---------------------------------------------------
 
+#Sets randomList equal to most recent memory entry, then deletes the most recent memory entry
 def undo():
     memory.pop(-1)
     randomList.clear()
@@ -355,6 +367,7 @@ def undo():
     else:
         visualize()
 
+# Exports randomList to current save file
 def saveList():
     fName = str("../saveFiles/save" + str(saveFile) + ".txt")
     with open(fName, "w") as f:
@@ -362,6 +375,7 @@ def saveList():
             f.write(note + " ")
     f.close()
 
+# Reads the current save file into randomList
 def loadList():
     fName = str("../saveFiles/save" + str(saveFile) + ".txt")
     randomList.clear()
