@@ -1,3 +1,7 @@
+# Plays a sound from a file given a note(str) on various operating systems
+# Author: Sequoia Pflug
+# Original Version: 12-26-2022
+
 from sys import platform
 
 class noteSound:
