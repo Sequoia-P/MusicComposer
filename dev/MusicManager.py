@@ -1,13 +1,14 @@
 # Music Note Generator, Editor, and Composer
 # Author: Sequoia Pflug
 # Music Advisor: Denali Pflug
-# 12-31-2021
+# Original Version: 12-31-2021
 # Update 1: 5-30-2022: Added save file feature
 # Update 2: 12-26-2022: Added undo button, new music player, new sound, removed unnecessary button refresh 
 
 
+# Set up------------------------------------------------------------
 
-
+# imports
 import random
 import StdDraw
 import sys
@@ -15,19 +16,21 @@ import picture
 import threading
 from noteSound import noteSound
 
-notes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B","C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B"]
-singleNotes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B", "Done"]
-randomList = []
-memory = []
-keys = []
-XPosList = []
-textYPosList = []
-noteYPosList = []
-buttonXList = []
-buttonYList = []
-saveFile = 1
-start = 1
+# variable initializations 
+notes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B","C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B"] #Note list for generation/transposition 
+singleNotes = ["C", "Db", "D" , "Eb", "E", "F", "Gb", "G", "Ab","A", "Bb" ,"B", "Done"] #Note list for menus
+randomList = [] #list of currently displayed notes
+memory = [] #list of previous iterations of currently loaded save file 
+keys = [] #list of buttons to be generated
+XPosList = [] #list of x positions for notes on display
+textYPosList = [] #list of y positions for note text on display
+noteYPosList = [] #list of y positions for notes on display
+buttonXList = [] #list of x positions for buttons on display
+buttonYList = [] #list of y positions for buttons on display
+saveFile = 1 #currently loaded save file
+start = 1 #startup mode
 
+# initialize graphics 
 StdDraw.setCanvasSize(768, 632)
 StdDraw.setXscale(0, 768)
 StdDraw.setYscale(0, 632)
@@ -38,6 +41,9 @@ StdDraw.setPenRadius(1)
 
 # Media Functions------------------------------------------------------------
 
+# Displays buttons in “keys” list. 
+# auto(int): Waits until a key is pressed and then returns which list entry was pressed if 1
+# clearBoard(int): Clears the button menu before displaying if 1
 def buttons(auto, clearBoard):
 
     if clearBoard == 1:
@@ -80,8 +86,9 @@ def buttons(auto, clearBoard):
                         
         resetButtons(clearBoard)
         
-        return pressed
+        return pressed #(int) "keys" list entry that was pressed
 
+# Checks for mouse clicks on each entry in “keys”
 def checkButtons():
     pressed = 20
     
@@ -98,8 +105,10 @@ def checkButtons():
                 if buttonX - 40 < int(StdDraw.mouseX()) < buttonX + 40 and buttonY - 23 < int(StdDraw.mouseY()) < buttonY + 23:
                     pressed = x
 
-    return pressed
+    return pressed #(int) "keys" list entry that was pressed
 
+# Clears all buttons and their positions from memory
+# clearBoard(int): Removes all buttons from display if 1
 def resetButtons(clearBoard):
     buttonXList.clear()
     buttonYList.clear()                          
@@ -109,6 +118,8 @@ def resetButtons(clearBoard):
         StdDraw.filledRectangle(0, 404, 768, 146)
         StdDraw.show(0.0001)
 
+# Adds text above buttons
+# title(str): text to display
 def buttonTitle(title):
     StdDraw.setPenColor(StdDraw.WHITE)
     StdDraw.filledRectangle(0, 550, 768, 82)
@@ -118,6 +129,9 @@ def buttonTitle(title):
     StdDraw.setFontSize(20)
     StdDraw.show(0.0001)
 
+# Clears buttons and displays text in center of menu, then clears again
+# title(str): text to display
+# duration(int): how long to title (in milliseconds )
 def title(text, duration):
     StdDraw.setPenColor(StdDraw.WHITE)
     StdDraw.filledRectangle(0, 404, 768, 228)
@@ -133,7 +147,7 @@ def title(text, duration):
     StdDraw.filledRectangle(0, 404, 768, 228)
     StdDraw.show(0.0001)
     
-            
+# Returns the appropriate position(int) to display a note icon given a note(str)       
 def position(note):
     if note == "A":
         position = 200
@@ -162,6 +176,7 @@ def position(note):
 
     return position
 
+# Completely resets graphical interface
 def clear():
     XPosList.clear()
     textYPosList.clear()
@@ -174,6 +189,7 @@ def clear():
     
     StdDraw.show(0.0001)
 
+# Displays all notes in randomList on screen
 def visualize():
     clear()
     
@@ -216,6 +232,7 @@ def visualize():
         XPosList.append(XPos)
         StdDraw.show(0.0001)
 
+# Highlights a given note in randomList x(int) in red
 def highlightNote(x):
     XPos = XPosList[x]
     note = str(randomList[x])
@@ -236,6 +253,7 @@ def highlightNote(x):
         StdDraw.line(XPos, textYPos - 8, XPos, noteYPos + 12)
     StdDraw.show(0.0001)
 
+# Removes highlight from a given note in randomList x(int)
 def unhighlightNote(x):
     XPos = XPosList[x]
     note = str(randomList[x])
