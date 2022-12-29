@@ -1,4 +1,4 @@
-https://youtu.be/-hTbvwLepy8
+
 
 # MusicComposer
 
@@ -11,6 +11,8 @@ Features:
 -	Music player with selection controls
 -	5 save files with immediate auto-save
 -	Undo button for recent changes in current save file
+
+[Watch a demonstration video here](https://youtu.be/-hTbvwLepy8)
 
 
 # Instructions
