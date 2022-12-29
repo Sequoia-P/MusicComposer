@@ -19,12 +19,12 @@ Features:
 
 This project is availible for anyone to download and use and can be opened by running the MusicComposer.py file in the "dev" folder. Use the following instructions to set it up on your Windows or MacOS device:
 
-[This project is currently in the form of Python Scripts and will need the following in order to run:]
+**This project is currently in the form of Python Scripts and will need the following in order to run:**
 - The latest stable release of Python for [MacOS](https://www.python.org/downloads/macos/) or [Windows](https://www.python.org/downloads/windows/)
 - pygame (installed using "pip install pygame" in terminal)
 - numpy (installed using "pip install numpy" in terminal)
 
-[If you are not familiar with github or running Python files:]
+**If you are not familiar with github or running Python files:**
 - Click the green "< > Code" button near the top right of this page and select "Download Zip"
 - Unzip the file in your downloads folder 
 - Run the MusicComposer.py file in the "dev" folder in terminal using python or python3 command 
