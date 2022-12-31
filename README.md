@@ -17,7 +17,7 @@ Features:
 [Watch a demonstration video here](https://youtu.be/-hTbvwLepy8)
 
 
-# Instructions:
+# Instructions
 
 This project is availible for anyone to download and use and can be opened by running the MusicComposer.py file in the "dev" folder. Use the following instructions to set it up on your Windows or MacOS device. If you have any questions about using the program or its settup process, feel free to DM me on Instagram @planecrazy.mt!
 
