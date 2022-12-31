@@ -38,10 +38,9 @@ This project is available for anyone to download and use and can be opened by ru
 
 This project is still in a fairly early stage and much of the fundamental work was done near the beginning of my computer science education. As I have time over the next few years, I hope to do the following:
 
-- **Switch to a different library for GUI:** The current libraries that I am using for graphics, audio, and other key functions (stdLib, stdDraw, and stdAudio) are outdated, inefficient, and place many limitions on furthur development. Switching to PyQT5, Tkinter, or a similar solution would require changing much of the current code, but would make the following goals much more feasible. 
+- **Switch to a different library for GUI:** The current libraries that I am using for graphics, audio, and other key functions (stdLib, stdDraw, and stdAudio) are outdated, inefficient, and place many limitations on further development. Switching to PyQT5, Tkinter, or a similar solution would require changing much of the current code, but would make the following goals much more feasible. 
 - **Improve efficiency:** Partly due to how StdDraw functions, the program currently consists of large, inefficient loops that could be significantly reduced given a different library. I would also like to switch to an object-oriented approach for each note and/or save file. 
 - **More notes and octaves:** While the current program is only meant to compose individual music passages, the current framework would allow the creation and management of entire songs and a much larger variety of notes in different octaves. This would be fairly easy to implement if the graphics are handled more efficiently.  
 - **Publish as a web application:** As this program is currently built in python, implementing it as a web-app could be a possibility and would make it much more accessible than is it in its current form. 
 
 This page will likely not be updated unless a significant bug is discovered, or I accomplish some of these goals. Please contact me if you have interest in helping with development or have specific requests.
-![image](https://user-images.githubusercontent.com/48298639/210122722-bc276264-b40a-4c0c-88d7-06fbea971f71.png)
