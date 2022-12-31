@@ -10,7 +10,7 @@ Features:
 -	Manuel music composition
 -	Music transposer (up to 11 spaces forwards or backwards)
 -	Note removal by position or value
--	Music player with selection controls
+-	Music player with selection controls and piano sounds
 -	5 save files with immediate auto-save
 -	Undo button for recent changes in current save file
 
@@ -35,3 +35,11 @@ This project is availible for anyone to download and use and can be opened by ru
 
 
 # Future Plans
+
+This project is still in a fairly early stage and much of the fundementle work was done near the beginning of my computer science education. As I have time over the next few years, I hope to do the following:
+
+- Switch to a different library for UI: The current libraries that I am using for graphics, audio, and other key functions (stdLib, stdDraw, and stdAudio) are outdated, ineffiecient, and place many limitions on furthur development. Switching to PyQT5, Tkinter, or a similar solution would require changing much of the current code, but would make the following goals much more feasable. 
+- Improve efficiency: Partly due to how StdDraw functions, the program currently consists of large, ineffocient loops that could be significantly reduced given a different library. I would also like to switch to an object-orianted approach for each note and/or save file. 
+- More notes and octaves: While the current program is only meant to compose individual music passages, the current framework would allow the creation and management of entire songs and a much larger veriety of notes in different octives. This would be fairly easy to implement if the graphics are handeled more efficiently.  
+- Publish as a web application: As this program is currenly built in python, inplementing it as a web-app could be a possibility and would make it much more accesable than is it in its current form. 
+
