@@ -19,7 +19,7 @@ Features:
 
 # Instructions:
 
-This project is availible for anyone to download and use and can be opened by running the MusicComposer.py file in the "dev" folder. Use the following instructions to set it up on your Windows or MacOS device:
+This project is availible for anyone to download and use and can be opened by running the MusicComposer.py file in the "dev" folder. Use the following instructions to set it up on your Windows or MacOS device. If you have any questions about using the program or its settup process, feel free to DM me on Instagram @planecrazy.mt!
 
 **Setup:** This project is currently in the form of Python Scripts and will need the following in order to run:
 - The latest stable release of Python for [MacOS](https://www.python.org/downloads/macos/) or [Windows](https://www.python.org/downloads/windows/)
@@ -31,9 +31,7 @@ This project is availible for anyone to download and use and can be opened by ru
 - Unzip the file in your downloads folder 
 - Run the MusicComposer.py file in the "dev" folder in terminal using `python` or `python3` command 
 
-See [this video](https://youtu.be/-hTbvwLepy8) for a demonstration of the program's functions and how to use them.
-
-If you have any questions about using the program or its settup process, feel free to DM me on Instagram @planecrazy.mt
+**Use:** See [this video](https://youtu.be/-hTbvwLepy8) for a demonstration of the program's functions and how to use them.
 
 
 # Future Plans
